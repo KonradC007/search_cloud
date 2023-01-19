@@ -30,9 +30,9 @@ jobs:
         set +e
         output=$(gcloud functions describe open-ai-api --region=us-central1 2>&1)
         if [[ $output == *"not found"* ]]; then
-          gcloud functions create open-ai-davincii --verbosity=debug --runtime python37 --trigger-http --allow-unauthenticated --entry-point main
+          gcloud functions create search-cloud --verbosity=debug --runtime python37 --trigger-http --allow-unauthenticated --entry-point main
         fi
         set -e
     - name: Deploy to Google Cloud
       run: |
-        gcloud functions deploy open-ai-davincii --verbosity=debug --runtime python37 --trigger-http --allow-unauthenticated --entry-point main
+        gcloud functions deploy search-cloud --verbosity=debug --runtime python37 --trigger-http --allow-unauthenticated --entry-point main
