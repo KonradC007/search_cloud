@@ -10,7 +10,6 @@ translator = Translator()
 os.environ['GOOGLE_API_KEY'] = 'AIzaSyBi4Y4V0EadlXkw5f9Nq6LFOXVodB-OmRg'
 
 
-
 def translate(text, lang='en'):
     return translator.translate(text, dest=lang).text
 
