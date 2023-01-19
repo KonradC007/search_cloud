@@ -30,11 +30,11 @@ jobs:
         set +e
         output=$(gcloud functions describe open-ai-api --region=us-central1 2>&1)
         if [[ $output == *"not found"* ]]; then
-          gcloud functions create search-cloud --verbosity=debug --runtime python37 --trigger-http --timeout=200 >
+          gcloud functions create search-cloud --verbosity=debug --runtime python37 --trigger-http --timeout=200 |
           --maxInstances=10 --allow-unauthenticated --entry-point scrape_youtube_data
         fi
         set -e
     - name: Deploy to Google Cloud
       run: |
-        gcloud functions deploy search-cloud --verbosity=debug --runtime python37 --trigger-http --timeout=200 >
+        gcloud functions deploy search-cloud --verbosity=debug --runtime python37 --trigger-http --timeout=200 |
         --maxInstances=10 --allow-unauthenticated --entry-point scrape_youtube_data
