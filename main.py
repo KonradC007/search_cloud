@@ -18,7 +18,6 @@ def remove_trailing_comma(value):
     return value.rstrip(",")
 
 
-
 def convert_to_int(value):
     units = {"thousand": 1000, "million": 1000000, "billion": 1000000000}
     try:
