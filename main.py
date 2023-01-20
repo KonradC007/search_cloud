@@ -118,7 +118,7 @@ def scrape_youtube_data(request, context=None):
                 print(f"Error Channel link: https://www.youtube.com/channel/{channel_id}/about")
             except:
                 print(f'Error https://www.youtube.com/watch?v={vid_id}')
-    return data
+    return str(data)
 
 
 
