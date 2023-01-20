@@ -37,19 +37,19 @@ def convert_to_int(value):
         print(f"Unable to convert {value} to int.")
 
 
-def scrape_youtube_data(event, context=None):
+def scrape_youtube_data(request, context=None):
     print(context)
-    print(event)
+    print(request)
 
     # Load the variables for search
-    country = event['country']
+    country = request.args.get('country')
 
     # Load country list
     country_list = [*csv.DictReader(open("assets/country_language.csv"))]
     country_dict = list(filter(lambda d: d['country_name'] == country, country_list))
 
     # Translate keyword
-    keyword = translate(event['keyword'], lang=country_dict[0]['language_code'])
+    keyword = translate(request.args.get('keyword'), lang=country_dict[0]['language_code'])
 
     # Configure proxy
     http_proxy = f"http://user-Growth:Thunders@{country_dict[0]['country_code']}.smartproxy.com:20000"
