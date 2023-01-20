@@ -123,4 +123,4 @@ def scrape_youtube_data(request, context=None):
 
 
 if __name__ == "__main__":
-    scrape_youtube_data(event={"country": "Germany", "keyword": "Outdoor activities"})
+    scrape_youtube_data(request={"country": "Germany", "keyword": "Outdoor activities"})
