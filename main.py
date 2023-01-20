@@ -38,7 +38,6 @@ def convert_to_int(value):
 
 
 def scrape_youtube_data(request, context=None):
-    print(context)
     print(request)
 
     # Load the variables for search
