@@ -31,6 +31,6 @@ jobs:
 
     - name: Deploy to App Engine
       run: |
-        gcloud auth activate-service-account --key-file=${{ secrets.GCLOUD_SA_KEY }}
+        gcloud auth activate-service-account --key-file=${{ secrets.GOOGLE_CLOUD_KEY_APP_ENGINE }}
         gcloud --quiet config set project $PROJECT_ID
         gcloud app deploy
