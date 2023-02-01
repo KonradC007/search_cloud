@@ -17,13 +17,9 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Authenticate with Google Cloud
-      run: |
-        echo '${{ secrets.GOOGLE_CLOUD_KEY_APP_ENGINE }}' | base64 --decode > service_account.json
-        echo "Installing Google Cloud SDK..."
-        CLOUDSDK_CORE_DISABLE_PROMPTS=1 curl https://sdk.cloud.google.com | bash
-        source $HOME/google-cloud-sdk/path.bash.inc
-        gcloud auth activate-service-account --key-file=service_account.json
-
+      uses: google-github-actions/auth@v1
+      with:
+        credentials_json: ${{ secrets.GOOGLE_CLOUD_KEY_APP_ENGINE }}
 
     - name: Build Docker Image
       run: |
