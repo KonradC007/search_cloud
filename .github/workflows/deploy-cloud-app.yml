@@ -23,7 +23,7 @@ jobs:
 
     - name: Build Docker Image
       run: |
-        docker build -t "gcr.io/{$project_id}/my-image" .
+        docker build -t "gcr.io/${{ secrets.GOOGLE_CLOUD_KEY_APP_ENGINE }}/my-image" .
 
     - name: Push Docker Image
       run: |
