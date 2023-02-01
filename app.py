@@ -71,6 +71,7 @@ def scrape_youtube_data(country, keyword):
     videos = re.findall(r'/watch\?v=(.*?)","webPageType"', html.text)
     video_ids = list(set([v_id[0:11] for v_id in videos]))
 
+
     # Analyze the videos
     channel_id_list = []
     for vid_id in video_ids:
