@@ -27,7 +27,7 @@ jobs:
 
     - name: Push Docker Image
       run: |
-        docker push gcr.io/$PROJECT_ID/my-image
+        docker push gcr.io/growthunders/my-image
 
     - name: Deploy to App Engine
       run: |
