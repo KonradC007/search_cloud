@@ -8,6 +8,7 @@ on:
 env:
   PROJECT_ID: ${{ secrets.GOOGLE_CLOUD_KEY_APP_ENGINE.project_id }}
 
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -32,5 +33,5 @@ jobs:
     - name: Deploy to App Engine
       run: |
         gcloud auth activate-service-account --key-file=${{ secrets.GOOGLE_CLOUD_KEY_APP_ENGINE }}
-        gcloud --quiet config set project $PROJECT_ID
+        gcloud --quiet config set project growthunders
         gcloud app deploy
