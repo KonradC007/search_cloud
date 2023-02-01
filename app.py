@@ -4,7 +4,9 @@ import csv
 import re
 import os
 from googletrans import Translator
+from flask import Flask, request
 
+app = Flask(__name__)
 translator = Translator()
 
 os.environ['GOOGLE_API_KEY'] = 'AIzaSyBi4Y4V0EadlXkw5f9Nq6LFOXVodB-OmRg'
@@ -37,19 +39,19 @@ def convert_to_int(value):
         print(f"Unable to convert {value} to int.")
 
 
-def scrape_youtube_data(request, context=None):
-    print(request)
+@app.route('/scrape_youtube_data/<country>/<keyword>', methods=['GET'])
+def scrape_youtube_data(country, keyword):
 
-    # Load the variables for search
-    country = request.args.get('country')
-
+    print(country)
+    print(keyword)
     # Load country list
     country_list = [*csv.DictReader(open("assets/country_language.csv"))]
     country_dict = list(filter(lambda d: d['country_name'] == country, country_list))
 
     # Translate keyword
-    keyword = translate(request.args.get('keyword'), lang=country_dict[0]['language_code'])
+    keyword = translate(keyword, lang=country_dict[0]['language_code'])
 
+    print(keyword)
     # Configure proxy
     http_proxy = f"http://user-Growth:Thunders@{country_dict[0]['country_code']}.smartproxy.com:20000"
     proxies = {"http": http_proxy}
@@ -58,11 +60,13 @@ def scrape_youtube_data(request, context=None):
         "gl": country_dict[0]['country_code']
     }
 
+    print(proxies)
     # Hit request with search query
-    html = requests.get(f"https://www.youtube.com/results?search_query={keyword}",
+    html = requests.get(f"https://www.youtube.com/results?search_query={keyword}&sp=CAM%253D",
                         cookies={'CONSENT': 'PENDING+{}'.format(random.randint(100, 999))},
                         proxies=proxies, params=params)
 
+    print(html)
     # Get the uniquelist of videos
     videos = re.findall(r'/watch\?v=(.*?)","webPageType"', html.text)
     video_ids = list(set([v_id[0:11] for v_id in videos]))
@@ -71,7 +75,7 @@ def scrape_youtube_data(request, context=None):
     channel_id_list = []
     for vid_id in video_ids:
         try:
-            #Clear variables
+            # Clear variables
             channel_id = None
 
             # Get the request for video
@@ -121,6 +125,5 @@ def scrape_youtube_data(request, context=None):
     return str(data)
 
 
-
 if __name__ == "__main__":
-    scrape_youtube_data(request={"country": "Germany", "keyword": "Outdoor activities"})
+    scrape_youtube_data(request={"country": "Italy", "keyword": "Outdoor activities"})

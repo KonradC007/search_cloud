@@ -1,0 +1,36 @@
+name: Deploy to App Engine
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  PROJECT_ID: ${{ secrets.PROJECT_ID }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Authenticate with Google Cloud
+      uses: google-actions/setup-gcloud@v1
+      with:
+        service_account_key: ${{ secrets.GCLOUD_SA_KEY }}
+
+    - name: Build Docker Image
+      run: |
+        docker build -t gcr.io/$PROJECT_ID/my-image .
+
+    - name: Push Docker Image
+      run: |
+        docker push gcr.io/$PROJECT_ID/my-image
+
+    - name: Deploy to App Engine
+      run: |
+        gcloud auth activate-service-account --key-file=${{ secrets.GCLOUD_SA_KEY }}
+        gcloud --quiet config set project $PROJECT_ID
+        gcloud app deploy
