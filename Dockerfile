@@ -21,4 +21,3 @@ ENV GOOGLE_API_KEY=AIzaSyBi4Y4V0EadlXkw5f9Nq6LFOXVodB-OmRg
 
 # Command to run the appdocker run ubuntu ls
 CMD ["flask", "run", "--host=0.0.0.0"]
-
