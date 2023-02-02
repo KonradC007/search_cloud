@@ -8,7 +8,6 @@ on:
 env:
   PROJECT_ID: ${{ secrets.GOOGLE_CLOUD_KEY_APP_ENGINE.project_id }}
 
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
