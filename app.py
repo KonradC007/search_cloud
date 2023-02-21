@@ -119,6 +119,7 @@ def scrape_youtube_data(country, keyword):
         except Exception as e:
             print(e)
 
+
             try:
                 print(f"Error Channel link: https://www.youtube.com/channel/{channel_id}/about")
             except:
